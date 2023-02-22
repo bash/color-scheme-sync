@@ -1,3 +1,5 @@
+#![allow(clippy::extra_unused_type_parameters)]
+
 use async_std::stream::{Stream, StreamExt};
 use gio::prelude::SettingsExtManual;
 use gio::Settings;
