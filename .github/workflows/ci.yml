@@ -30,7 +30,7 @@ jobs:
         components: rustfmt, clippy
         override: true
     - name: Build
-      run: cargo build --verbose
+      run: cargo build
     - name: Check format
       run: cargo fmt --all -- --check
     - name: Run clippy with native dev features
