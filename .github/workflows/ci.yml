@@ -34,5 +34,5 @@ jobs:
       run: cargo build
     - name: Check format
       run: cargo fmt --all -- --check
-    - name: Run clippy with native dev features
+    - name: Run clippy
       run: cargo clippy --all-targets -- --deny warnings
