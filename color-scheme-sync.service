@@ -2,9 +2,11 @@
 Description=Synchronizes the legacy gtk-theme preference with the new color scheme preference
 
 [Service]
-ExecStart=/home/ruben/.local/bin/color-scheme-sync
+ExecStart=@@HOME_DIR@@/.local/bin/color-scheme-sync
 Restart=always
 RestartSec=10
+Slice=background.slice
+After=graphical-session.target
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
