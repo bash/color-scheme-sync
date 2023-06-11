@@ -1,12 +1,13 @@
 [Unit]
 Description=Synchronizes the legacy gtk-theme preference with the new color scheme preference
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 ExecStart=@@HOME_DIR@@/.local/bin/color-scheme-sync
 Restart=always
 RestartSec=10
-Slice=background.slice
-After=graphical-session.target
+Slice=session.slice
 
 [Install]
 WantedBy=graphical-session.target
