@@ -1,22 +1,25 @@
 #![allow(clippy::extra_unused_type_parameters)]
 
 use ashpd::desktop::settings::{ColorScheme, Settings as DesktopSettings};
-use async_std::stream::StreamExt as _;
+use async_std::stream::{self, StreamExt as _};
+use dedup::StreamExt as _;
 use gio::prelude::SettingsExtManual as _;
 use gio::Settings;
 use std::error::Error;
+
+mod dedup;
 
 #[async_std::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let settings = DesktopSettings::new().await?;
 
-    set_legacy_gtk_theme_setting(settings.color_scheme().await?)?;
-
     eprintln!("Waiting for color scheme changes...");
-    let mut color_scheme_updated = settings.receive_color_scheme_changed().await?;
-    while let Some(color_scheme) = color_scheme_updated.next().await {
-        set_legacy_gtk_theme_setting(color_scheme)?;
-    }
+    let color_scheme_changed = settings.receive_color_scheme_changed().await?;
+    stream::once(settings.color_scheme().await?)
+        .chain(color_scheme_changed)
+        .dedup()
+        .try_for_each(set_legacy_gtk_theme_setting)
+        .await?;
 
     Ok(())
 }
