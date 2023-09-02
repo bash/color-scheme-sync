@@ -4,7 +4,7 @@ PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]
-ExecStart=@@HOME_DIR@@/.local/bin/color-scheme-sync
+ExecStart=$HOME/.local/bin/color-scheme-sync
 Restart=always
 RestartSec=10
 Slice=session.slice
