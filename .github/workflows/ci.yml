@@ -1,4 +1,4 @@
-name: Rust
+name: CI
 
 on:
   push:
@@ -36,3 +36,14 @@ jobs:
       run: cargo fmt --all -- --check
     - name: Run clippy
       run: cargo clippy --all-targets -- --deny warnings
+
+  nix:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v22
+      with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    - run: nix build
+    - run: nix flake check
