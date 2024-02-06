@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 ashpd = "0.6.2"
 async-std = { version = "1.12.0", features = ["attributes"] }
+dirs = "5.0.1"
 futures-core = "0.3.28"
-gio = "0.17.2"
+is_executable = "1.0.1"
 pin-project-lite = "0.2.13"
