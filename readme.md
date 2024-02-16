@@ -1,6 +1,7 @@
 # color-scheme-sync
 
-☀️ 🌑
+> [!warning]
+> This is no longer needed for new versions of Electron / VSCode.
 
 A daemon that watches for changes in the new system-wide
 [dark style preference](https://blogs.gnome.org/alexm/2021/10/04/dark-style-preference/) in GNOME \
